@@ -4,18 +4,18 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 import Get_Image
-
+import glob
+import os
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-    Get_Image.get_image()
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    file_path = "C:/Users/Makav/Desktop/ISM_2022w/test" #Simply change the file path to the correct location
+    Get_Image.get_image(file_path)
+    print(os.listdir(file_path))
+    #print(Get_Image.images)
+    #print(glob.glob("C:/Users/Makav/Desktop/ISM_2022w/test/*"))
+    #print(glob.glob("C:/Users/Makav/Desktop/ISM_2022w/test/*.png"))
