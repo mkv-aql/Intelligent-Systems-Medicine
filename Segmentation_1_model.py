@@ -54,6 +54,7 @@ def build_unet(input_shape):
 
 if __name__ == "__main__":
     input_shape = (512, 512, 3)
+    #input_shape = (299, 299, 3)
     model = build_unet(input_shape)
     model.summary()
 
