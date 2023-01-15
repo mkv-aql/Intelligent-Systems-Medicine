@@ -35,9 +35,9 @@ def load_data(path, split=0.2):
     masks1 = sorted(glob(os.path.join(path, "ManualMask", "leftMask", "*.png"))) #Left mask
     masks2 = sorted(glob(os.path.join(path, "ManualMask", "rightMask", "*.png"))) #Right mask
     """
-    images = sorted(glob(os.path.join(path, "*.png"))) #list of all images
-    masks1 = sorted(glob(os.path.join(path, "ManualMask", "leftMask", "*.png"))) #Left mask
-    masks2 = sorted(glob(os.path.join(path, "ManualMask", "rightMask", "*.png"))) #Right mask
+    images = sorted(glob(os.path.join(path, "train_resized", "*.png"))) #list of all images
+    masks1 = sorted(glob(os.path.join(path, "train_left_512x512_masked", "*.png"))) #Left mask
+    masks2 = sorted(glob(os.path.join(path, "train_right_512x512_masked", "*.png"))) #Right mask
 
 
     split_size = int(len(images) * split) #Split size of training and validation data
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     """ Dataset """
     #dataset_path = "/media/nikhil/Seagate Backup Plus Drive/ML_DATASET/MontgomerySet"
-    dataset_path = "C:/Users/Makav/Desktop/ISM_2022w/train_resized"
+    dataset_path = "C:/Users/Makav/Desktop/ISM_2022w"
     (train_x, train_y1, train_y2), (valid_x, valid_y1, valid_y2), (test_x, test_y1, test_y2) = load_data(dataset_path)
 
     print(f"Train: {len(train_x)} - {len(train_y1)} - {len(train_y2)}") #prints the number of data for training
