@@ -7,6 +7,7 @@ import cv2
 from glob import glob
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
+import tensorflow as tf
 #from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger, ReduceLROnPlateau
 #from tensorflow.keras.optimizers import Adam
 #from tensorflow.keras.metrics import Recall, Precision
@@ -26,18 +27,26 @@ def create_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def load_data(path, split=0.1):
-    images = sorted(glob(os.path.join(path, "CXR_png", "*.png")))
-    masks1 = sorted(glob(os.path.join(path, "ManualMask", "leftMask", "*.png")))
-    masks2 = sorted(glob(os.path.join(path, "ManualMask", "rightMask", "*.png")))
+#split value will determine the split amount. 0.1 = 10% of the data will be used for validation, 0.2 = 20% of the data will be used for validation, etc.
+def load_data(path, split=0.2):
+    """ Load data from a directory. """
+    """
+    images = sorted(glob(os.path.join(path, "CXR_png", "*.png"))) #list of all images
+    masks1 = sorted(glob(os.path.join(path, "ManualMask", "leftMask", "*.png"))) #Left mask
+    masks2 = sorted(glob(os.path.join(path, "ManualMask", "rightMask", "*.png"))) #Right mask
+    """
+    images = sorted(glob(os.path.join(path, "*.png"))) #list of all images
+    masks1 = sorted(glob(os.path.join(path, "ManualMask", "leftMask", "*.png"))) #Left mask
+    masks2 = sorted(glob(os.path.join(path, "ManualMask", "rightMask", "*.png"))) #Right mask
 
-    split_size = int(len(images) * split)
 
-    train_x, valid_x = train_test_split(images, test_size=split_size, random_state=42)
-    train_y1, valid_y1 = train_test_split(masks1, test_size=split_size, random_state=42)
-    train_y2, valid_y2 = train_test_split(masks2, test_size=split_size, random_state=42)
+    split_size = int(len(images) * split) #Split size of training and validation data
 
-    train_x, test_x = train_test_split(train_x, test_size=split_size, random_state=42)
+    train_x, valid_x = train_test_split(images, test_size=split_size, random_state=42) #Splitting images into training and validation data lists (90 % training, 10 % validation)
+    train_y1, valid_y1 = train_test_split(masks1, test_size=split_size, random_state=42) #Splitting left masks into training and validation data lists (90 % training, 10 % validation)
+    train_y2, valid_y2 = train_test_split(masks2, test_size=split_size, random_state=42) #Splitting right masks into training and validation data lists (90 % training, 10 % validation)
+
+    train_x, test_x = train_test_split(train_x, test_size=split_size, random_state=42) #
     train_y1, test_y1 = train_test_split(train_y1, test_size=split_size, random_state=42)
     train_y2, test_y2 = train_test_split(train_y2, test_size=split_size, random_state=42)
 
@@ -101,12 +110,12 @@ if __name__ == "__main__":
 
     """ Dataset """
     #dataset_path = "/media/nikhil/Seagate Backup Plus Drive/ML_DATASET/MontgomerySet"
-    dataset_path = "C:/Users/Makav/Desktop/ISM_2022w/train"
+    dataset_path = "C:/Users/Makav/Desktop/ISM_2022w/train_resized"
     (train_x, train_y1, train_y2), (valid_x, valid_y1, valid_y2), (test_x, test_y1, test_y2) = load_data(dataset_path)
 
-    print(f"Train: {len(train_x)} - {len(train_y1)} - {len(train_y2)}")
-    print(f"Valid: {len(valid_x)} - {len(valid_y1)} - {len(valid_y2)}")
-    print(f"Test: {len(test_x)} - {len(test_y1)} - {len(test_y2)}")
+    print(f"Train: {len(train_x)} - {len(train_y1)} - {len(train_y2)}") #prints the number of data for training
+    print(f"Valid: {len(valid_x)} - {len(valid_y1)} - {len(valid_y2)}") #prints the number of data for validation
+    print(f"Test: {len(test_x)} - {len(test_y1)} - {len(test_y2)}") #prints the number of data for testing
 
     train_dataset = tf_dataset(train_x, train_y1, train_y2, batch=batch_size)
     valid_dataset = tf_dataset(valid_x, valid_y1, valid_y2, batch=batch_size)

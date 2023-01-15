@@ -10,17 +10,6 @@ import os
 # read all images in a folder
 images = []
 filename_list = []
-"""
-def get_image(folder):
-    print("Running get_image")
-    for filename in os.listdir(folder):
-        filename_list.append(filename) #append the names of the files to a list
-        img = cv2.imread(os.path.join(folder, filename))
-        if img is not None:
-            images.append(img)
-    # print("Total elements: ", len(images)) #Just to check the no. of elements in the 'images' array
-    return images
-"""
 
 def get_image(folder):
     print("Running get_image")
@@ -31,6 +20,7 @@ def get_image(folder):
             images.append(img)
     # print("Total elements: ", len(images)) #Just to check the no. of elements in the 'images' array
     return images
+
 
 # resize all images in a folder
 def resize_image(images):
