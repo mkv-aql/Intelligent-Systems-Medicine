@@ -98,15 +98,15 @@ if __name__ == "__main__":
     np.random.seed(42)
     tf.random.set_seed(42)
 
-    """ Directory for storing files """
-    create_dir("files")
+    """ Directory for storing data_preprocessing_scripts """
+    create_dir("data_preprocessing_scripts")
 
     """ Hyperparameters """
     batch_size = 2 #Higher gpu can be more than 2
     lr = 1e-5
     num_epochs = 10
-    model_path = os.path.join("files", "model.h5")
-    csv_path = os.path.join("files", "data.csv")
+    model_path = os.path.join("data_preprocessing_scripts", "model.h5")
+    csv_path = os.path.join("data_preprocessing_scripts", "data.csv")
 
     """ Dataset """
     #dataset_path = "/media/nikhil/Seagate Backup Plus Drive/ML_DATASET/MontgomerySet"

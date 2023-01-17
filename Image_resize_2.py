@@ -14,7 +14,7 @@ filename_list = []
 def get_image(folder):
     print("Running get_image")
     for filename in os.listdir(folder):
-        filename_list.append(filename) #append the names of the files to a list
+        filename_list.append(filename) #append the names of the data_preprocessing_scripts to a list
         img = cv2.imread(os.path.join(folder, filename))
         if img is not None:
             images.append(img)
@@ -29,7 +29,7 @@ def resize_image(images):
         images[i] = cv2.resize(images[i], (512, 512))
     return images
 
-#list all the files in the folder
+#list all the data_preprocessing_scripts in the folder
 def list_files(folder):
     print("Running list_files")
     for filename in os.listdir(folder):
